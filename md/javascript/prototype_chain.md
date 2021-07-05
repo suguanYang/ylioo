@@ -6,7 +6,7 @@ This is not an explanation of TC39 specs, just a javascript implementation persp
 An object is a data structure that contains data and methods, the `null` and `Primitive` are not object.
 
 ### The Constructors
-The Constructors itself are callable objects, every constructors have a `constructor` method, it will be called when invoke `new constructor()`(the initializes). the constructor default `constructor` method points to itself. perform a `new` operator on constructor will create an object.
+The Constructors itself are callable objects, every constructors have a `constructor` method site on the *prototype* properties, it will be called when initializes object. the constructor default `constructor` method points to itself. 
 
 ```javascript
 function Klass() {
@@ -19,8 +19,7 @@ a.name === 'a';
 ```
 
 ### The Prototype
-Every objects has a prototype, it can be found by `Object.getPrototypeOf`, the prototype is a constructor's `prototype` property.
-the `constructor` method site on the `prototype` property. Every objects has a root prototype which is `Object.prototype`.
+Every objects has a prototype, it can be found by `Object.getPrototypeOf`, Every objects has a root prototype which is `Object.prototype`.
 
 ```javascript
 function Klass() {
@@ -35,7 +34,7 @@ const a = new Klass();
 a.constructor === klassConstructor;
 a.name === 'b';
 ```
-if a object's prototype is not an object, the new operator will set the `prototype` property of obj to the standard built-in Object prototype object.
+if a object's `prototype` is not an object, the new operator will set the `prototype` property of obj to the standard built-in Object prototype object.
 ```javascript
 function Foo(){}
 Foo.prototype = null;
@@ -43,5 +42,8 @@ Object.getPrototypeOf(new Foo()) === Object.prototype;
 new Foo().constructor === Object;
 ```
 
+### The prototype property
+The `prototype` property is used to initializes the `__proto__` property of it's instance.
+
 ### The prototype chain
-Every objects have a `___proto__` property, any data or methods defined on `__proto__` can be shared fot that object. if object was inited by `new Constructor()` or `Object.create(Argument)`, it's `__proto__` property is an equivalent of it's constructor's prototype or Argument.
+Every objects have a `___proto__` property, any data or methods defined on `__proto__` can be shared for that object. if object was initialized by `new Constructor()` or `Object.create(Argument)`, it's `__proto__` property is an equivalent of it's constructor's `prototype` property or Argument.
