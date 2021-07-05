@@ -20,7 +20,7 @@ a.name === 'a';
 
 ### The Prototype
 Every objects has a prototype, it can be found by `Object.getPrototypeOf`, the prototype is a constructor's `prototype` property.
-the `constructor` method site on the `prototype` property.
+the `constructor` method site on the `prototype` property. Every objects has a root prototype which is `Object.prototype`.
 
 ```javascript
 function Klass() {
