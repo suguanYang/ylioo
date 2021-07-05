@@ -1,4 +1,4 @@
-This is not a explaination of TC39 specs, just a javascript implementation perspective.
+This is not an explanation of TC39 specs, just a javascript implementation perspective.
 
 ## Terms
 
