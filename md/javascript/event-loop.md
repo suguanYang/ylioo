@@ -32,24 +32,24 @@ normally the task was ordered by FIFO
 the first setTimeout task was poped out first, beacuse it pushed to task-queue first
 ```javascript
 setTimeout(function () {console.log(1)}, 6);
-setTimeout(function () {console.log(2)}, 4);
 let i = 0;
 while(i < 1000000000) {
  i++;
 }
-// 2
+setTimeout(function () {console.log(2)}, 4);
 // 1
+// 2
 ```
 ### example 2
-the second task was poped out first, shows that the browser will re-shcedule the task order while javascript main thread was runing
+the second task was poped out first, shows that the browser will re-shcedule the task order while javascript main thread was runing, in example 1, the second timeout was pushed to task immediately after js main call stack empty, the browser may doesn't have time to re-shcedule
 ```javascript
 setTimeout(function () {console.log(1)}, 6);
+setTimeout(function () {console.log(2)}, 4);
 let i = 0;
 while(i < 1000000000) {
  i++;
 }
-setTimeout(function () {console.log(2)}, 4);
-// 1
 // 2
+// 1
 ```
  
