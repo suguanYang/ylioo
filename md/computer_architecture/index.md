@@ -99,7 +99,7 @@ reverse(x) = ~x + 1
 
 
 ## Fractional Binary Numbers
-![Binary float](../assets/binary_numbers.png)
+![Binary float](./assets/binary_numbers.png)
 
 |                Value              | Binary |
 |-----------------------------------|--------|
@@ -115,7 +115,7 @@ reverse(x) = ~x + 1
 ## IEEE Floating-Point Representation
 The IEEE floating-point standard represents a number in a form V = (-1)<sup>s</sup> x M x 2<sup>E</sup>
 
-![float point](../assets/float_point.png)
+![float point](./assets/float_point.png)
 
 The bit representation of a floating-pointer number is didvided into three fields to encoded these value:
 - The single sign bit *s* directly encodes the sign *s*
@@ -125,7 +125,7 @@ The bit representation of a floating-pointer number is didvided into three field
 The significand is defined to be M = 1 + f . This is sometimes called an implied leading 1 representation, because we can view M to be the number with binary representation 1.fn−1fn−2 . . . f0. This representation is a trick for getting an additional bit of precision for free, since we can always adjust the exponent E so that significand M is in the range 1 ≤ M < 2 (assuming there is no overflow). We therefore do not need to explicitly represent the leading bit, since it always equals 1.
 
 ## Categories of single-precision floating-point values.
-![Categories](../assets/categories_of_single_precision_floating_point.png)
+![Categories](./assets/categories_of_single_precision_floating_point.png)
 
 ### Normalized values
 - When exp != 000...0 and exp != 111...1
@@ -181,4 +181,4 @@ Denormalized numbers serve two purposes. First, they provide a way to represent 
 A second function of denormalized numbers is to represent numbers that are very close to 0.0. They provide a property known as gradual underflow in which possible numeric values are spaced evenly near 0.0.
 
 ## Why set the bias this way for denormalized values?
-![float point encoding](../assets/float_point_encoding_visualization.png)
+![float point encoding](./assets/float_point_encoding_visualization.png)
