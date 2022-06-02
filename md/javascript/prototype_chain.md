@@ -43,7 +43,7 @@ new Foo().constructor === Object;
 ```
 
 ### The prototype property
-The `prototype` property is used to initializes the `__proto__` property of it's instance.
+The `prototype` property is used to initializes the `__proto__` property of it's instance.(prototype pattern)
 
 ### The prototype chain
 Every objects have a `___proto__` property, any data or methods defined on `__proto__` can be shared for that object. if object was initialized by `new Constructor()` or `Object.create(Argument)`, it's `__proto__` property is an equivalent of it's constructor's `prototype` property or Argument.
