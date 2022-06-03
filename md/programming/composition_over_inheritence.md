@@ -1,6 +1,6 @@
 ## Disadvantages of Inheritance:
 1. You can't change the implementation inherited from super classes at runtime (obviously because inheritance is defined at compile time).
-2. Inheritance exposes a subclass to details of its parent class implementation, that's why it's often said that inheritance breaks encapsulation (in a sense that you really need to focus on interfaces only not implementation, so reusing by sub classing is not always preferred).
+2. Inheritance exposes a subclass to details of its parent class implementation, that's why it's often said that inheritance breaks encapsulation, like the design of protected modifier.
 3. The tight coupling provided by inheritance makes the implementation of a subclass very bound up with the implementation of a super class that any change in the parent implementation will force the sub class to change.
 4. Excessive reusing by sub-classing can make the inheritance stack very deep and very confusing too.
 
