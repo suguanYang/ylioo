@@ -80,7 +80,7 @@ type ToArrayNonDist<T> = [T] extends [unknown] ? T[] : never;
 type R = ToArrayNonDist<string | number>; // (string | number)[];
 ```
 
-## the keof union type
+## the keyof union type
 ```
 type n = keyof ({a: 1} | {b: 1}); // never
 type ab = keyof {a: 1} & keyof {b: 1};
