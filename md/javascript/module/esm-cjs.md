@@ -21,7 +21,7 @@ export default 1;
 
 
 // transform
-exports.default = 1;
+exports.default = 1; // not tmodule.exports = 1
 Object.defineProperty(exports, '__esModule', { value: true });
 ```
 
@@ -51,21 +51,21 @@ export default require_stdin();
 ```
 
 But this will force the invoker to import the default value of
-the cjs-esm, and deconstruct the named export from the default value, a work around to this is wrap the cjs-esm
+the cjs-esm, and deconstruct the named export from the default value, a work around to this is to wrap the cjs-esm
 with CJS's named export to ESM named export:
 
 ```
 // the wrapper
- private async wrapESM(cjsEsm) {
+ private async wrapESM(cjsModule) {
     await init();
 
-    const raw = await readFile(cjsEsm, "utf-8");
+    const raw = await readFile(cjsModule, "utf-8");
     const ast = parse(raw);
 
     const namedExports = ast.exports;
 
     let wrapESMContent = `
-import * as __module from "${cjsEsm}";
+import * as __module from "${cjsModule}";
 const { default: __default, ...__rest } = __module;
 export default (__default !== undefined ? __default : __rest);
       `;
@@ -76,7 +76,7 @@ export default (__default !== undefined ? __default : __rest);
         .join(",")} } = __default ?? __module;`;    // if the default is present, all the named export will bind on it
     }
 
-    const wrapESMPath = path.dirname(optimized.file) + "/index.js";
+    const wrapESMPath = path.dirname(cjsModule) + "/index.mjs";
     await writeFile(wrapESMPath, wrapESMContent, "utf-8");
 
     return wrapESMPath;
