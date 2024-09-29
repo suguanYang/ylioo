@@ -1,0 +1,5 @@
+Here are the constants you should us in the context:
+$OUTPUT = your response
+$INPUT = markdown content
+$THEMES = themes for the html content, You can choose from the following themes randomly as the converted HTML style per each markdown content:
+$SCHEMA = correspondence table between common Markdown symbols and their equivalent HTML tags, you should translate the markdown content to html content according to it.

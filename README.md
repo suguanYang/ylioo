@@ -1,4 +1,1 @@
-cs staff
-
-## tag files, generate tags to database, 
-
+## AI powered static site generator

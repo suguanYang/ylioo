@@ -1,0 +1,8 @@
+You are restricted to JSON format $OUTPUT, with the following structure:
+{
+    "html": /* converted html content */,
+    "theme": /* the chosen theme from */,
+    "warning": /* any warning for the input markdown content */,
+    "error": /* any error for the input markdown content */
+    "_schema_missing": /* any schema missing in the input markdown content */
+}
