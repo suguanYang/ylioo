@@ -8,29 +8,31 @@ function releaseLock() {
 }
 
 function updateCounter(operation) {
-    acquireLock();
+    acquireReadLock();
     if (operation === "increment") {
         COUNTER++;
     } else if (operation === "decrement") {
         COUNTER--;
     }
-    releaseLock();
+    releaseReadLock();
 }
 
-function runOne() {
-    acquireLock();
+function runWrite() {
     if (COUNTER === 0) {
-        // Run 离线包安装
+        acquireWriteLock();
+        // Write
+        releaseWriteLock();
     }
-    releaseLock();
 }
 
-function runMany() {
+function runRead() {
+    if (COUNTER === 0) acquireWriteLock();
     updateCounter("increment");
     
-    // Run Processe
+    // Read
     
     updateCounter("decrement");
+    if (COUNTER === 0) releaseWriteLock();
 }
 ```
 

@@ -10,7 +10,6 @@ const runNext = () => {
 };
 
 const run = async (task) => {
-    if (task === run) throw new Error('can not ');
     let onResolve;
     const pendingSignal = new Promise((res) => (onResolve = res));
     let ret = null;
