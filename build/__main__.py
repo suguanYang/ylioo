@@ -19,19 +19,33 @@ def create_document_store(path: str):
                     document_store.write_documents([Document(content=f.read(), id=os.path.join(root, file))])
     return document_store
 
-def prompt_builder(theme: str):
+def prompt_builder():
     themes = open("./prompts/markdown_themes.txt", "r").read()
-
+    schema = open("./prompts/markdown_schema.txt", "r").read()
+    constants = open("./prompts/constants.txt", "r").read()
+    output = open("./prompts/output.txt", "r").read()
     return f'''
 You are a markdown to html converter. you should translate the markdown content to html content.
-{theme}
+By processing the input, you are given the context constants:
+{constants}
+
+You are given a common markdown schema:
+{schema}
+
+You are given themes:
+{themes}
+
+And your output should be in the following format:
+{output}
 '''
+
 def main():
     document_store = create_document_store("./md")
     print(document_store)
+    prompt = prompt_builder()
+    print(prompt)
 
 if __name__ == "__main__":
     main()
 
 
-print(document_store)

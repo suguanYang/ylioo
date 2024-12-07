@@ -1,3 +1,4 @@
+The $THEMES are:
 "Windows XP nostalgic interface style",
 "Retro pixel art font and graphics",
 "Futuristic spaceship control panel layout",
