@@ -1,4 +1,9 @@
-<Com /> this is JSX
+---
+title: JSX and Component
+---
+
+```jsx
+<Com /> // this is JSX
 Com this is component
 
 const App = () => {
@@ -23,4 +28,5 @@ const App2 = () => {
         </div>
     )
 }
+```
 

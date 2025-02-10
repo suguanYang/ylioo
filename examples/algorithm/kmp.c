@@ -41,6 +41,25 @@ void compute_prefix(char *pattern, int pLen, int *prefix) {
     }
 }
 
+void optimize_prefix(char *pattern, int pLen, int *prefix) {
+
+    int i = 1; int j = 0;
+    while (i < pLen) {
+        while (j != 0 && pattern[j] != pattern[i]) {
+            j = *(prefix + j - 1);
+        }
+        // 4. if p[i] and p[j] matched, we add 1 to j, means we should increment the length of the matched substring of p[i]
+        if (pattern[i] == pattern[j]) {
+            if (pattern[i] == pattern[pattern[j]]) {
+                *(prefix + i) = *(prefix + pattern[j]);
+            }
+            j++;
+        }
+
+        i++;
+    }
+}
+
 int kmp(char* target, char* pattern) {
 
     int pl = len(pattern); int tl = len(target);
@@ -48,6 +67,8 @@ int kmp(char* target, char* pattern) {
     
     int* prefix = malloc(sizeof(int) * pl);
     compute_prefix(pattern, pl, prefix);
+
+    // optimize_prefix(pattern, pl, prefix);
 
     printPrefix(prefix, pl);
     int i = 0;

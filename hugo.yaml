@@ -1,0 +1,20 @@
+baseURL: https://ylioo.com/
+languageCode: en-us
+
+title: ylioo
+contentDir: md
+publishDir: html
+theme: paper
+enableGitInfo: true
+defaultContentLanguage: en
+enableRobotsTXT: true
+
+frontmatter:
+  lastmod: [':git', ':fileModTime']
+
+markup:
+  _merge: deep # Import default config
+  goldmark:
+    renderer:
+      unsafe: true # Allow HTML code in Markdown, see https://gohugo.io/getting-started/configuration-markup/#rendererunsafe
+

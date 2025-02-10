@@ -105,9 +105,9 @@ TreeNode* buildTree(int* preorder, int preorderSize, int* inorder, int inorderSi
 }
 
 
-void main() {
-    int preprder[5] = {3,9,20,15,7};
-    int inorder[5]  = {9,3,15,20,7};
+// void main() {
+//     int preprder[5] = {3,9,20,15,7};
+//     int inorder[5]  = {9,3,15,20,7};
 
-    buildTree(preprder, 5, inorder, 5);
-}
+//     buildTree(preprder, 5, inorder, 5);
+// }

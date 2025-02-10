@@ -3,6 +3,13 @@
         "types.h": "c",
         "stdlib.h": "c",
         "string_view": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "stdbool.h": "c",
+        "stdio.h": "c",
+        "array": "c",
+        "string": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "string.h": "c"
     }
 }

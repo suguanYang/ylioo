@@ -1,3 +1,7 @@
+---
+title: Performance
+---
+
 - Eliminating unneeded memory references
 Holding the accumulated value in local variable acc (short for “accumulator”) eliminates the need to retrieve
 it from memory and write back the updated value on every loop iteration.
