@@ -48,14 +48,19 @@ jobs:
             --config hugo.yaml
       - name: Build pagefind index
         run: npx -y pagefind --site html
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Create SSH key
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
         run: |
+          echo "$SSH_PRIVATE_KEY"
           mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
+          chmod 700 ~/.ssh 
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
           sudo chmod 400 ~/.ssh/private.key
       - name: Upload to server
         run: scp -vr ./html/* suguan@144.24.24.49:/home/suguan/ylioo -i ~/.ssh/private.key
-
