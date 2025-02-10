@@ -1,9 +1,0 @@
-[submodule "themes/hugo-theme-yue"]
-	path = themes/hugo-theme-yue
-	url = https://github.com/CyrusYip/hugo-theme-yue
-[submodule "themes/hugo-bearblog"]
-	path = themes/hugo-bearblog
-	url = https://github.com/janraasch/hugo-bearblog.git
-[submodule "themes/paper"]
-	path = themes/paper
-	url = https://github.com/nanxiaobei/hugo-paper
