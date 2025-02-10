@@ -26,6 +26,7 @@ defaults:
 jobs:
   # Build job
   build:
+    environment: production
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.128.0
@@ -49,12 +50,21 @@ jobs:
             --destination ~/ylioo
       - name: Build pagefind index
         run: npx -y pagefind --site html
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create SSH key
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh 
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
+          sudo chmod 400 ~/.ssh/private.key
       - name: Upload to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: 144.24.24.49
-          username: suguan
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ~/ylioo/*
-          target: /home/suguan/ylioo
-          overwrite: true
+        run: |
+          ls -la ~/ylioo/
+          ls -la ~/.ssh/private.key
+          scp -vr ~/ylioo/* suguan@144.24.24.49:/home/suguan/ylioo -i ~/.ssh/private.key
