@@ -1,3 +1,7 @@
+---
+title: "Concurrency Control Implementation with Queue"
+---
+
 const PENDING_CREATE_QUEUE = [];
 const MAX_CONCURRENCY_REQUEST = 20;
 

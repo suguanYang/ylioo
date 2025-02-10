@@ -1,3 +1,7 @@
+---
+title: "Sorting Algorithms: Merge Sort, Quick Sort and Heap Sort"
+---
+
 ### Merge Sort
 the merge sort algorithm has a total cost of BigTheta(nlgn),
 the MERGE process requires extra memory linear to number of 
@@ -67,7 +71,7 @@ QUICK_SORT(A, p, r):
 
 ### Heap Sort
 Like merge sort, but unlike insertion sort, 
-heapsort’s running time is O.n lg n/. Like 
+heapsort's running time is O.n lg n/. Like 
 insertion sort, but unlike merge sort, heapsort 
 sorts in place: only a constant number of array
 elements are stored outside the input array at any time.

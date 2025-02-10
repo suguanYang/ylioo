@@ -11,6 +11,7 @@ enableRobotsTXT: true
 
 frontmatter:
   lastmod: [':git', ':fileModTime']
+  date: [':git', ':fileCommitDate']
 
 markup:
   _merge: deep # Import default config

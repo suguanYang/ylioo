@@ -1,3 +1,7 @@
+---
+title: "CPU Instruction Processing Stages"
+---
+
 Processing instructions in particular sequence of stages:
 
 - Fetch

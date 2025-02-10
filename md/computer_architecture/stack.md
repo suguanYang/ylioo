@@ -1,9 +1,13 @@
+---
+title: "Stack Memory Usage and Allocation"
+---
+
 A stack is a continuous memory address used for _Control transfer_ and _Data transfer_
 
 ## Local Storage on the Stack
 - There are not enough registers to hold all of the local data.
 . 
-- The address operator ‘&’ is applied to a local variable, and hence we must be
+- The address operator '`&`' is applied to a local variable, and hence we must be
 able to generate an address for it.
 . 
 - Some of the local variables are arrays or structures and hence must be accessed

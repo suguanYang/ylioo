@@ -1,3 +1,7 @@
+---
+title: "Transistor Operation and DRAM Cells"
+---
+
 ## How a junction transistor works
 JTs exist as PNP and NPN types, based on the doping types of the three main terminal regions. An NPN transistor comprises two semiconductor junctions that share a thin p-doped region, and a PNP transistor comprises two semiconductor junctions that share a thin n-doped region. N-type means doped with impurities that provide mobile electrons, while P-type means doped with impurities that provide holes that readily accept electrons.
 ![](./assets/NPN_BJT_Basic_Operation.png)
@@ -7,6 +11,6 @@ In typical operation, the base–emitter junction is forward-biased, which means
 ## DRAM cell and transistor
 <img src="./assets/transistor-save.png" style="background-color: #fff">
 
-When a HIGH voltage (equivalent to bit ‘1’) is sent, the MOS gate gets a high voltage and turns on. Suppose the data line now has a high bit ‘1’, then the channel formation of the MOS ensures that the capacitor too, charges up to a high voltage, storing a ‘1’. For a ‘0’ on the data line, the capacitor is discharged.
+When a HIGH voltage (equivalent to bit '1') is sent, the MOS gate gets a high voltage and turns on. Suppose the data line now has a high bit '1', then the channel formation of the MOS ensures that the capacitor too, charges up to a high voltage, storing a '1'. For a '0' on the data line, the capacitor is discharged.
 
-A ‘0’ on the address line now means that the MOS transistor is switched off, giving the capacitor no apparent path to discharge, hence it stores the voltage it has been charged up to. This is the simplest way to store information.
+A '0' on the address line now means that the MOS transistor is switched off, giving the capacitor no apparent path to discharge, hence it stores the voltage it has been charged up to. This is the simplest way to store information.

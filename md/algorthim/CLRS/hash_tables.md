@@ -1,4 +1,7 @@
-```
+---
+title: "Hash Table Implementation and Methods"
+---
+
 CHAINED-HASH-INSERT(T, x)
     LIST-PREPEND(T[h(x.key)], x)
 CHAINED-HASH-SEARCH(T, k)
@@ -13,7 +16,7 @@ h(k) = k mod m
 ```
 The multiplication method
 ```
-h(k) = ⌊m (kA mod 1)⌋ // “kA mod 1” means the fractional part of kA
+h(k) = ⌊m (kA mod 1)⌋ // "kA mod 1" means the fractional part of kA
 ```
 
 ## Open addressing
@@ -22,20 +25,20 @@ HASH-INSERT(T, k)
     i = 0
     repeat
         q = h(k, i)
-        if T[q] == NIL
+        if T[q] == NIL
             T[q] = k
-            return q
-        else i = i + 1
-    until i == m
-    error “hash table overflow”
+            return q
+        else i = i + 1
+    until i == m
+    error "hash table overflow"
 
 HASH-SEARCH(T, k)
 	i = 0
     repeat
         q = h(k, i)
-        if T[q] == k
-            return q
+        if T[q] == k
+            return q
         i = i + 1
-    until T[q] == NIL or i == m
-    return NIL
+    until T[q] == NIL or i == m
+    return NIL
 ```

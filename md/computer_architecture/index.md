@@ -1,3 +1,7 @@
+---
+title: "Computer Architecture Fundamentals"
+---
+
 ## Sign Extension
 
 - Task
@@ -6,7 +10,7 @@
 
 - Rule
   - Make `k` copies of sign bit
-  - x‘ = x<sub>w-1</sub>, ..., x<sub>3</sub>, x<sub>2</sub>, x<sub>1</sub>
+  - x' = x<sub>w-1</sub>, ..., x<sub>3</sub>, x<sub>2</sub>, x<sub>1</sub>
 
 ### Example
  Give 4-bit signed int convert it to 6-bit

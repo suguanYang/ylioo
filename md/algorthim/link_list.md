@@ -1,3 +1,7 @@
+---
+title: "Linked Lists: Advantages, Disadvantages and Use Cases"
+---
+
 ## Main Advantages of Linked Lists:
 1. Efficient Insertions/Deletions
 - Inserting/deleting at the beginning or middle of a linked list is O(1) once you have the pointer to the location, compared to O(n) for arrays which require shifting elements

@@ -1,3 +1,7 @@
+---
+title: "One-to-Many Locking Mechanism"
+---
+
 ```javascript
 function acquireLock() {
     // Implementation by a lock file

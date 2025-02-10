@@ -1,3 +1,7 @@
+---
+title: "Simple JavaScript Proxy Implementation"
+---
+
 if (prev.isProxy) return prev;
 return new Proxy(prev, {
     set(target, p, newValue, receiver) {

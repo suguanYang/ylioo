@@ -1,3 +1,7 @@
+---
+title: "Store Buffer and Memory Performance"
+---
+
 The store unit includes a store buffer
 containing the addresses and data of the store operations that have been issued
 to the store unit, but have not yet been completed, where completion involves

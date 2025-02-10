@@ -1,3 +1,7 @@
+---
+title: "Digital Logic Design Basics"
+---
+
 Three major components are required to implement a digital system: combinational logic
 to compute functions on the bits, memory elements to store bits, and clock signals
 to regulate the updating of the memory elements.

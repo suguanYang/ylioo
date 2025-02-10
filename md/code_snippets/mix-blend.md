@@ -1,4 +1,7 @@
-```css
+---
+title: "CSS Mix-Blend-Mode Example"
+---
+
 .w {
   position: relative;
   width: 100%;
@@ -20,6 +23,6 @@
   mix-blend-mode: screen; 	 /*Cb + (Ci/Cw) - (Cb * (Ci/Cw))*/
   z-index: 2;
 }
-```
+
 this will make i's background color to be b's bg-color, and area outside the i will be #fff
 
