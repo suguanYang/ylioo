@@ -57,7 +57,7 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh 
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
-          sudo chmod 400 ~/.ssh/private.key
+          chmod 400 ~/.ssh/private.key
       - name: Upload to server
         run: |
           ls -la ~/.ssh/private.key
