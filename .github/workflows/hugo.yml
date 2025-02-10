@@ -64,7 +64,4 @@ jobs:
           sudo chmod 400 ~/.ssh/private.key
       - name: Upload to server
         run: |
-          ls -la ~/
-          ls -la ~/ylioo/
-          ls -la ~/.ssh/private.key
           scp -vr ~/ylioo/* suguan@144.24.24.49:/home/suguan/ylioo -i ~/.ssh/private.key

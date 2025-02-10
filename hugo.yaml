@@ -3,7 +3,6 @@ languageCode: en-us
 
 title: ylioo
 contentDir: md
-publishDir: html
 theme: paper
 enableGitInfo: true
 defaultContentLanguage: en
