@@ -4,15 +4,11 @@ title: "Preview Server System Design"
 
 # Preview server
 
-Owner: suguan Yang
-
 The main responsibility of preview server is to response to the application frontend resource requests.
 
 And do the minimal work to transform the source code to a running JS code for browser.
 
 An overview of service dependencies
-
-![overview of services](Untitled.png)
 
 overview of services
 
@@ -39,12 +35,9 @@ Exp.
 
 ```jsx
 const entries = {
-        './Entry': ()=>import('https://service-pre.seeyonv8.com/udc-sandbox/resource/4778028619903289062/pc/src/app-sandbox-wrapper.tsx?h=1678950480221&appId=4778028619903289062&platform=pc').then((mod)=>()=>mod),
-        './czcpxqy': ()=>import('https://service-pre.seeyonv8.com/udc-sandbox/resource/4778028619903289062/pc/src/remote-entries/czcpxqy/container-remote-entry-sandbox-wrapper.tsx?h=1678950480221&appId=4778028619903289062&platform=pc').then((mod)=>()=>mod),
-        './glgqfxqy': ()=>import('https://service-pre.seeyonv8.com/udc-sandbox/resource/4778028619903289062/pc/src/remote-entries/glgqfxqy/container-remote-entry-sandbox-wrapper.tsx?h=1678950480221&appId=4778028619903289062&platform=pc').then((mod)=>()=>mod),
-        './tyjdfpxqy': ()=>import('https://service-pre.seeyonv8.com/udc-sandbox/resource/4778028619903289062/pc/src/remote-entries/tyjdfpxqy/container-remote-entry-sandbox-wrapper.tsx?h=1678950480221&appId=4778028619903289062&platform=pc').then((mod)=>()=>mod),
+        './Entry': ()=>import('https://service-pre.xxx.com/sandbox/resource/4778028619903289062/pc/src/app-sandbox-wrapper.tsx?h=1678950480221').then((mod)=>()=>mod)
     };
-    window['invoice4778028619903289062'] = {
+    window['xxx'] = {
         init() {},
         get(name) {
             return entries[name]()
@@ -76,19 +69,17 @@ function SandboxWrapper(props: any) {
 }
 ```
 
-![Untitled](Untitled%201.png)
-
 1. remote resource
 
 If we want the preview service to be stateless, we have to ship the state to the outside, the remote resource module is used to transfer and retrieve sources code (the generated code) from the external storage(Redis). The resource was stored by key `${appId}-${platform}`, each key has a corresponding version key which is used to check the consistency between resources in runtime and external, if the resource requests come in, we will first check whether the version key matched, so we do not have to fetch the resource from external for every request.
 
 So there has 3 layers of cache for our resources
 
-![Untitled](Untitled%202.png)
+![../assets/Untitled](../assets/123.png)
 
 The process of preview server to handle resource requests be like:
 
-![Untitled](Untitled%203.png)
+![../assets/Untitled](../assets/456.png)
 
 1. Lifecycle 
 
@@ -159,7 +150,7 @@ To solve the first case, we can install customer dependencies when the source co
 
 For the second one, we can add a distributed lock on the optimizer, and publish the optimized dep to the OSS, furthermore, we should check on OSS, and write these undeclared deps into config
 
-![Untitled](Untitled%204.png)
+![../assets/Untitled](../assets/789.png)
 
 ### Version 2 Optimizer
 
@@ -246,7 +237,7 @@ Memory: At the runtime, massive concurrent http requets will issued by browser, 
 
 In the main/children mode, the applications run in the different tabs, some state is maintained by a local variable in the esmodule, if 2 tabs import the same esmodule that contains state, the local variable will be overwritten by the last one, the browser will treat the 2 imports as the same module since their ImportSpecifier are the same, we could append a sandbox id to the ImportSpecifier to make the same esmodule become 2 different ones, to achieve this we have to append the sandbox id to every requests that initialized by the tabs(the requests may hit to different runtime instances), we use a global variable `**sandbox_load_count**` to count on the tab opening, and the preview server will append every resource a sandbox ID includes the dependency modules. So the resource request will become to:
 
-`/udc-app-runtime/preview/resource/6726582769930161258/pc/src/pages/index/costomPage.tsx?h=1670650504301&platform=pc&sandbox=1`
+`/app-runtime/preview/resource/123/pc/src/pages/index/costomPage.tsx?h=1670650504301&sandbox=1`
 
 ## The Vite
 
@@ -268,12 +259,6 @@ The state in the Vite could be eliminated, if we can ship them to the external s
 
 ## System integration
 
-The output of preview is nothing but esmodules, import these preview module would be easy.
-
-The way:
-
-The Main/RemoteComponent system implementation details are heavily depended on the webpack module federation, Main itself is just an application loader, the application entries can be discovered within it.
-
-It loads application by data: { appid }, actually is appName, and the existing application all have a remoteEntry file which is build by seeyon/syf, Main will use the data appName to load that file, and invoke the webpack functions to load the application's Entry Component, To integrate with Main, or other use RemoteComponent systems, we need to simulate on the remoteEntry, which means we need also generate a remoteEntry and upload to OSS, it also needs preserver the signature of the remoteEntry, so the System can load the preview resource without any **cognitive load**.
+The output of preview is nothing but esmodules, import these preview module would be easy, the System can load the preview resource without any **cognitive load**.
 
 [Distributed ESM](https://www.notion.so/Distributed-ESM-0a5a213c9a114ab4ac292144b7b25c52?pvs=21)
