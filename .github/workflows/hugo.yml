@@ -56,7 +56,7 @@ jobs:
           host: 144.24.24.49
           username: suguan
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "~/ylioo/*"
+          source: "/home/runner/ylioo/*"
           target: "/home/suguan/ylioo"
           overwrite: true
           debug: true
