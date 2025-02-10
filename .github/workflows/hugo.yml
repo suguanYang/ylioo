@@ -50,10 +50,6 @@ jobs:
             --destination ~/ylioo
       - name: Build pagefind index
         run: npx -y pagefind --site html
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
     steps:
       - name: Create SSH key
         env:
@@ -65,6 +61,6 @@ jobs:
           sudo chmod 400 ~/.ssh/private.key
       - name: Upload to server
         run: |
-          ls -la ~/ylioo/
           ls -la ~/.ssh/private.key
+          ls -la ~/ylioo/
           scp -vr ~/ylioo/* suguan@144.24.24.49:/home/suguan/ylioo -i ~/.ssh/private.key
