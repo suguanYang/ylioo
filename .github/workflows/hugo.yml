@@ -50,6 +50,8 @@ jobs:
             --destination ./html
       - name: Build pagefind index
         run: npx -y pagefind --site ./html
+      - name: Check
+        run: ls -la ./html
       - name: Upload to server
         uses: appleboy/scp-action@v0.1.7
         with:
