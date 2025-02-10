@@ -2,6 +2,8 @@
 title: "Preview Server System Design"
 ---
 
+Repository: [https://github.com/suguanYang/next-web](https://github.com/suguanYang/next-web)
+
 # Preview server
 
 The main responsibility of preview server is to response to the application frontend resource requests.
@@ -127,7 +129,7 @@ redis.lock.release(appID)
 
 ### 
 
-The status was managed by UDC service previously, since we bypassed it now, we have to implement it too. We still can use Redis to store the status of the app generation, like the code above.
+The status was managed by service previously, since we bypassed it now, we have to implement it too. We still can use Redis to store the status of the app generation, like the code above.
 
 ### Optimizer
 
@@ -229,7 +231,7 @@ Since we treat the file as a state and shipped these state to Redis, we have to 
 
 ## The performance bottleneck
 
-Cpu: We use thread pool to run tasks of the udc-code-engine and the dependencies update, althought the udc-code-engine is not a cpu-intensive task(io-intensive instead), we still need to utilize the multi-core ablebility for our udc-sandbox server.
+Cpu: We use thread pool to run tasks of the code generation and the dependencies update, althought the code generation is not a cpu-intensive task(io-intensive instead), we still need to utilize the multi-core ablebility for our sandbox server.
 
 Memory: At the runtime, massive concurrent http requets will issued by browser, if we can eliminate the sandbox, we could pre-fetch the resources and leverage with the browser caches. For cache first stretage(do not need re-transpile source code), the server will store lots of transpiled code, if we do not have a well planned load balaner, the memory can not be controlled very well
 
@@ -245,7 +247,7 @@ The Vite itself is a development tool, it holds many local states for performanc
 
 1. A reverse proxy
 
-The requests to the preview server is self-contained, it has the information on the HTTP request, e.g. the app ID on the HTTP path `/udc-app-runtime/preview/resource/431306586676806014/pc/src/utils/event-bus/index.ts`,
+The requests to the preview server is self-contained, it has the information on the HTTP request, e.g. the app ID on the HTTP path `/app-runtime/preview/resource/431306586676806014/pc/src/utils/event-bus/index.ts`,
 
 we could run a simple algorithm to dispatch the requests to the same preview server if they have the same app ID:
 
