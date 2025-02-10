@@ -2,6 +2,7 @@
 title: "IP"
 ---
 
+
 One way to think of IP is that it runs on all the nodes(both hosts and routers) in a collection of networks and defines the infrastucture that allows these nodes and networks to function as a single logical internetwork.
 
 The IP service model can be thought of as having two parts: an addressing scheme, which provides a way to identify all hosts in the internetwork, and a datagram (connectionless) model of data delivery. This service model is sometimes called best effort because, although IP makes every effort to deliver datagrams, it makes no guarantees. 

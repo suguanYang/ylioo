@@ -10,7 +10,10 @@ defaultContentLanguage: en
 enableRobotsTXT: true
 
 frontmatter:
-  date: [':git', ':fileModTime']
+  date: [':git']
+
+pagination:
+  pagerSize: 10
 
 markup:
   _merge: deep # Import default config

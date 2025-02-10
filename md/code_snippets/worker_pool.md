@@ -1,3 +1,6 @@
+---
+title: "Worker Pool"
+---
 
 ```javascript
 import * as Comlink from "comlink";
