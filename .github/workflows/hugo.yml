@@ -45,7 +45,8 @@ jobs:
         run: |
           hugo \
             --minify \
-            --config hugo.yaml
+            --config hugo.yaml \
+            --destination ~/ylioo
       - name: Build pagefind index
         run: npx -y pagefind --site html
 
@@ -57,10 +58,13 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
         run: |
-          echo "$SSH_PRIVATE_KEY" >> $GITHUB_OUTPUT
+          echo "123123"
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh 
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
           sudo chmod 400 ~/.ssh/private.key
+          ls -la ~/.ssh
       - name: Upload to server
-        run: scp -vr ./html/* suguan@144.24.24.49:/home/suguan/ylioo -i ~/.ssh/private.key
+        run: |
+          ls -la ~/.ssh
+          scp -vr ~/ylioo/* suguan@144.24.24.49:/home/suguan/ylioo -i ~/.ssh/private.key
