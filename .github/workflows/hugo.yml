@@ -58,13 +58,13 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
         run: |
-          echo "123123"
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh 
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
           sudo chmod 400 ~/.ssh/private.key
-          ls -la ~/.ssh
       - name: Upload to server
         run: |
-          ls -la ~/.ssh
+          ls -la ~/
+          ls -la ~/ylioo/
+          ls -la ~/.ssh/private.key
           scp -vr ~/ylioo/* suguan@144.24.24.49:/home/suguan/ylioo -i ~/.ssh/private.key
