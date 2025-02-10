@@ -47,7 +47,7 @@ jobs:
           hugo \
             --minify \
             --config hugo.yaml \
-            --destination ~/ylioo
+            --destination html
       - name: Build pagefind index
         run: npx -y pagefind --site html
       - name: Upload to server
@@ -56,7 +56,7 @@ jobs:
           host: 144.24.24.49
           username: suguan
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "/home/runner/ylioo/*"
+          source: "html/*"
           target: "/home/suguan/ylioo"
           overwrite: true
           debug: true
