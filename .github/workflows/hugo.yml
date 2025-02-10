@@ -50,16 +50,12 @@ jobs:
             --destination ~/ylioo
       - name: Build pagefind index
         run: npx -y pagefind --site html
-      - name: Create SSH key
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh 
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
-          chmod 400 ~/.ssh/private.key
       - name: Upload to server
-        run: |
-          ls -la ~/.ssh/private.key
-          ls -la ~/ylioo/
-          scp -vr ~/ylioo/* suguan@144.24.24.49:/home/suguan/ylioo -i ~/.ssh/private.key
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 144.24.24.49
+          username: suguan
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ~/ylioo/*
+          target: /home/suguan/ylioo
+          overwrite: true
