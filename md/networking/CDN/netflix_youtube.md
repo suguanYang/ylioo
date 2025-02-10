@@ -1,3 +1,7 @@
+---
+title: "Netflix and YouTube CDN Architecture"
+---
+
 Netflix video distribution has two major components: the Amazon cloud and its own private CDN infrastructure.
 ## Content ingestion. 
 Before Netflix can distribute a movie to its customers, it must
@@ -18,7 +22,7 @@ Similar to Netflix, Google uses its own private CDN
 to distribute YouTube videos, and has installed server clusters in many hundreds
 of different IXP and ISP locations. From these locations and directly from its huge
 data centers, Google distributes YouTube videos [Adhikari 2011a]. Unlike Netflix,
-however, Google uses pull caching, and DNS redirect,. Most of the time, Google’s cluster-selection strategydirects the client to the cluster for which the RTT between client and cluster is the lowest; however, in order to balance the load across clusters, sometimes the client is directed (via DNS) to a more distant cluster [Torres 2011].
+however, Google uses pull caching, and DNS redirect,. Most of the time, Google's cluster-selection strategydirects the client to the cluster for which the RTT between client and cluster is the lowest; however, in order to balance the load across clusters, sometimes the client is directed (via DNS) to a more distant cluster [Torres 2011].
  <!-- The DNS server provides api to UPDATE and DELTE records, this can help to make the records responds to the real time measurements more frequently -->
 
  Several million videos are uploaded to YouTube every day. Not only are You-

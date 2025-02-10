@@ -2,6 +2,7 @@
 title: "HTTP Proxy with Request Interception"
 ---
 
+```javascript
 const fs = require("fs");
 const path = require("path");
 const pkg = require("./package.json");
@@ -215,3 +216,4 @@ function copyHeaders(originalResponse, response) {
     response.headers = originalResponse.headers;
   }
 }
+```

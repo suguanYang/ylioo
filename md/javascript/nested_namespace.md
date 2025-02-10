@@ -1,4 +1,7 @@
-```
+---
+title: "TypeScript Nested Namespace Declarations"
+---
+
 declare namespace wx {
   namespace request {
     type Param = {

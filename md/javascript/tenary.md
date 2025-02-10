@@ -1,3 +1,7 @@
+---
+title: "Ternary Operator Limitations"
+---
+
 function tenaryGen(count) {
   let operations = 'x === y ? 1 : 0'
   for (let i = 0; i < count; i++) {

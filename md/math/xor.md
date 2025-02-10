@@ -1,3 +1,7 @@
+---
+title: "Understanding XOR Operation Properties"
+---
+
 Think of the XOR operator as a 'conditional flip' operator, that is think of a⊕b
 as saying if a is 1, take flipped b as the output, while if a
 is 0, take b as the output. Because of the commutative property, a⊕b

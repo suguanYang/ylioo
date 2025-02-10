@@ -1,3 +1,7 @@
+---
+title: "Read Committed and Weak Isolation Levels"
+---
+
 Read Committed
 1. When reading from database, the transaction will only read the committed data.
 2. When writing to database, the transaction will only write to the committed data.

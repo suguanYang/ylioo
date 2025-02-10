@@ -1,3 +1,7 @@
+---
+title: "Comparing Structural Design Patterns"
+---
+
 ## Adapter versus Bridge
 The Adapter and Bridge patterns have some common attributes. Both promote flexibility by providing a level of indirection to another object. Both involve forwarding requests to this object from an interface other than its own.
 

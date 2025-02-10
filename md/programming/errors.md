@@ -1,3 +1,7 @@
+---
+title: "Error Handling Strategies"
+---
+
 The exceptions thrown by a class are part of its interface; classes with lots of exceptions have complex interfaces, and they are shallower than classes with fewer exceptions.
 
 Reducing the number of exception handlers.

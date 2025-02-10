@@ -1,3 +1,7 @@
+---
+title: "Benefits and Principles of Modular Programming"
+---
+
 ## Modularity
 A well-defined segmentation of the project effort ensures
 system modularity. Each task forms a separate, distinct program

@@ -1,3 +1,7 @@
+---
+title: "I/O Device Management and Interrupt Handling"
+---
+
 The CPU hardware has a wire called the interrupt-request line that the CPU senses after executing every
 instruction, After executing each instruction, the CPU checks (or "polls") the state of the interrupt-request line. This polling happens as part of the CPU's instruction cycle.
 The device controller raises an interrupt by asserting a signal on the interrupt request line, the CPU catches the interrupt and transfers control to the interrupt handler, and the controller

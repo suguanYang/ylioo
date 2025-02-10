@@ -1,3 +1,7 @@
+---
+title: "Multi-Layer Network Routing Architecture"
+---
+
 Within the context of the transport network, a transport network provider has its own
 domain to meet the demand requirement through transport node equipment and transport network
 links. It is important to point out that three different ISPs (each one marked as a separate autonomous
@@ -14,7 +18,7 @@ network such as the Internet, the telephone network, and the transport network s
 WDM for carrying these traffic networks. In essence, a network (or layer) rides on another network,
 i.e., a traffic network needs a transport network to connect the links needed for the traffic network; then,
 within the transport network, multilayering is possible due to different data rates such as in optical
-transport networks (OTNs). From a service point of view, a user of a traffic network does not “see” the
+transport networks (OTNs). From a service point of view, a user of a traffic network does not "see" the
 dependency on the transport network.
 
 ![networks](./assets/multilayer.png)

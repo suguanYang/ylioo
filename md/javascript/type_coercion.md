@@ -1,3 +1,7 @@
+---
+title: "JavaScript Type Coercion Rules"
+---
+
 ```javascript
 function OrdinaryToPrimitive(O: object, hint: 'string' | 'number') {
   let methodNames;

@@ -1,3 +1,7 @@
+---
+title: "ACID Properties in Database Systems"
+---
+
 ## Atomicity
 The ability to abort a transaction on error and have all writes from that transaction discarded 
 

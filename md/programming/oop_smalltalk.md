@@ -1,3 +1,7 @@
+---
+title: "Smalltalk and Object-Oriented Programming Concepts"
+---
+
 ## Background
 
 ### Object-oriented programming is a Solution to Complexity

@@ -1,3 +1,7 @@
+---
+title: "JavaScript Reflection and Proxy API"
+---
+
 Javascript has built-in support for introspection and self-modification. These features
 are provided as part of the language, rather than througt a dusticnt metaobject protocol.
 This is largely because Javascript objects are represented as flexible records mapping key
@@ -7,14 +11,14 @@ index notation.
 ## Proxy
 The behavior of a proxy object is controlled by a separate handler object. The methods of the
 handler object are traps that are called whenever a corresponding operation is applied to
-the proxy object. Handlers are effectively “meta-objects” and their interface effectively
-defines a “metaobject protocol”.
+the proxy object. Handlers are effectively "meta-objects" and their interface effectively
+defines a "metaobject protocol".
 The distinction between a proxy and its handler object enforces stratification(separation) of
 the traps. Traps are not defined as part of the (application-level) interface of the
 proxy object, but as part of the interface of the handler. For instance, the property
-access proxy.has will not trigger the proxy’s corresponding has trap. Instead, it
+access proxy.has will not trigger the proxy's corresponding has trap. Instead, it
 will correctly trigger handler.get(target,"has",proxy). Likewise, proxy.get triggers
-handler.get(target,"get",proxy). Traps can only be invoked as methods on a proxy’s
+handler.get(target,"get",proxy). Traps can only be invoked as methods on a proxy's
 handler, not on the proxy itself. This enforces stratification (the meta-level traps should
 not interfere with base-level method names). Thus, proxies continue to work correctly
 if an application (by accident or by design) uses the names get, set, has, etc.
@@ -24,7 +28,7 @@ single handler may also handle multiple proxies. Indeed, all handler traps are p
 with the target to operate on, so that a shared handler can distinguish the different targets
 of its proxies. The handler can even be a proxy itself.
 
-**Stratification**: by defining a proxy’s traps on a separate handler object, the proxy’s
+**Stratification**: by defining a proxy's traps on a separate handler object, the proxy's
 application-level interface remains cleanly separated from its meta-level interface.
 
 ## Functions
@@ -52,14 +56,14 @@ var h = {
         return Reflect.apply ( target , receiver , args ) ;
     } ,
     construct: function ( target , args ) {
-        throw new Error ( ” not a constructor ” ) ;
+        throw new Error ( " not a constructor " ) ;
     }
 };
 
 var p = Proxy(f, h) ;
 f(1, 2); // returns3
 p(1, 2); // callsh.apply(f, undefined, [ 1 , 2 ] ) , returns 3
-p(’a’, ’b’) ; // throws exception
+p('a', 'b') ; // throws exception
 new p(1, 2) ; // throws exception
 p.x / / get trap missing, defaults to f.x, returns undefined
 var o = { m : p };
@@ -80,7 +84,7 @@ methods for interceptable JavaScript operations. The methods are the same as  pr
 ### Reflect: the dual of the Proxy API
 When writing a Proxy handler, one is often interested in augmenting the default behavior of
 the target object in response to an intercepted operation. As such, a generic mechanism is
-needed by which the implementor of a handler trap can “forward” the intercepted operation to
+needed by which the implementor of a handler trap can "forward" the intercepted operation to
 its target. 
 
 The Proxy API provides a distinct Reflect object5 which defines, for each trap in the

@@ -1,3 +1,7 @@
+---
+title: "TCP and Network Protocol Questions"
+---
+
 1. Can TCP payload size less than 1 byte since the seq number will accumlated by byte size?
 The minimum payload size for TCP is 0 bytes (which is possible in certain cases, like pure ACK packets). The sequence number does indeed accumulate based on the number of bytes sent, but it's not possible to send a fraction of a byte.
 

@@ -1,3 +1,7 @@
+---
+title: "JavaScript Prototype Chain Explained"
+---
+
 This is not an explanation of TC39 specs, just a javascript implementation perspective.
 
 ## Terms

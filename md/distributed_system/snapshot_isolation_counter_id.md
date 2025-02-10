@@ -1,3 +1,7 @@
+---
+title: "Transaction ID Management in Snapshot Isolation"
+---
+
 maintain a counter, ex a range of 10 as the transaction ID
 whenever a transcation occurs, the ID is given by mod((previousID + 1), 10)
 

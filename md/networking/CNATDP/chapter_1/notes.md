@@ -1,3 +1,7 @@
+---
+title: "Network Delay Types and Packet Loss"
+---
+
 # Chapter 1   
 ## Delay in Packet-Switched Networks   
 The most important delays are the ***node processing delay, queuing delay, transmission delay,***  and **propagation delay.**   

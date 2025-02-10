@@ -1,3 +1,7 @@
+---
+title: "Network Signal Encoding Methods"
+---
+
 ## NRZ
 Map the data value 1 onto the high signal and the data value 0 onto the low signal.
 

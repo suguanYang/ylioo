@@ -1,3 +1,7 @@
+---
+title: "Mutex Lock Implementation Differences"
+---
+
 the following code runs differently in go1.21 and go1.22
 ```go
 package main

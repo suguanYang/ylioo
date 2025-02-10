@@ -1,3 +1,7 @@
+---
+title: "Comparing Coroutines and Threads"
+---
+
 There are a few key differences between preemptive and cooperative threading/concurrency models:
 
 1. Scheduling:

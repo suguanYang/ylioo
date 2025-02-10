@@ -1,3 +1,7 @@
+---
+title: "Basic Concurrency Concepts"
+---
+
 ## Synchronization
 Using atomic operations to ensure cooperation between threads.
 

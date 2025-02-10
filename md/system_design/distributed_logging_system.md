@@ -1,3 +1,7 @@
+---
+title: "Distributed Logging System Design"
+---
+
 Functional requirements:
     -
 

@@ -1,3 +1,7 @@
+---
+title: "JavaScript Event Loop and Task Scheduling"
+---
+
 ```
 while(true) {
 	while (microtask = microtasks.pop()) {

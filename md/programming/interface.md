@@ -1,3 +1,7 @@
+---
+title: "Interface Design Principles"
+---
+
 General purpose interfaces have many advantages over special purpose one. They
 tend to be simpler, with fewer methods that are deeper, they also provide a
 cleaner separation betwwen classes, whereas special-purpose interfaces tend to

@@ -1,3 +1,5 @@
+
+```javascript
 import * as Comlink from "comlink";
 
 import debug from "./debug.ts";
@@ -84,3 +86,4 @@ export default class Pool {
     }
   }
 }
+```

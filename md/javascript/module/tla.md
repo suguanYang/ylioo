@@ -1,3 +1,7 @@
+---
+title: "Top Level Await Behavior and Execution Order"
+---
+
 TLA will not block the excuiton order of sibling modules.
 ```javascript
 const timeout = new Promise((resolve) => setTimeout(resolve, 1000));

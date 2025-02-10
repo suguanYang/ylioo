@@ -1,3 +1,7 @@
+---
+title: "Frontend Version Control Specification"
+---
+
 ## Version Specification
 For the simplicity and consistency of frontend version control, we consider to formulate this specification. Every frontend project should follow it.
 

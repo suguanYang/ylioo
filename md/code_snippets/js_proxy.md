@@ -1,7 +1,8 @@
 ---
-title: "Simple JavaScript Proxy Implementation"
+title: "Javascript Proxy"
 ---
 
+```javascript   
 if (prev.isProxy) return prev;
 return new Proxy(prev, {
     set(target, p, newValue, receiver) {
@@ -13,3 +14,4 @@ return new Proxy(prev, {
         return Reflect.get(target, p, receiver);
     },
 });
+```

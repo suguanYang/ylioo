@@ -1,3 +1,7 @@
+---
+title: "Permutations and Combinations Formula Reference"
+---
+
 |                                     |Repeats allowed	        |No Repeats
 |-------------------------------------|-------------------------|------------
 |Permutations (order matters):	      |n^r	                    |n!/(n − r)!

@@ -1,3 +1,7 @@
+---
+title: "Software and Hardware Locking Mechanisms"
+---
+
 ## Software-based solutions
 
 ### Out-of-Order Execution

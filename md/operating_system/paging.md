@@ -1,3 +1,6 @@
+---
+title: "Memory Paging and Page Table Implementation"
+---
 
 The physical memory size unit is awalys Byte, consider the physical memory as a large array, the size of the array is the physical memory size, and the element of the array is the page frame, and the index of the array is the page frame number, so the page frame number is also a kind of address.
 

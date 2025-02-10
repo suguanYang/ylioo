@@ -1,7 +1,7 @@
 ---
 title: "Concurrency Control Implementation with Queue"
 ---
-
+```javascript
 const PENDING_CREATE_QUEUE = [];
 const MAX_CONCURRENCY_REQUEST = 20;
 
@@ -52,3 +52,4 @@ export default run;
 // nested run can only run if its not blocked by the
 // concurrency control, thus if the MAX_CONCURRENCY_REQUEST
 // is 1, this run will be blocked forever
+```

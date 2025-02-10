@@ -1,3 +1,7 @@
+---
+title: "Core Programming Principles"
+---
+
 ## Modules Should Be Deep
 ## Information Hiding
 ## General-Purpose Modules are Deeper
@@ -10,7 +14,7 @@
 ## Design it Twice
 ## Good code is self-documenting
 ## Comments get out of date and become misleading
-## Comments Should Describe Things that Aren’t Obvious from the Code
+## Comments Should Describe Things that Aren't Obvious from the Code
 ## Implementation comments: what and why, not how
 ## Cross-module design decisions
 ## Choosing Names

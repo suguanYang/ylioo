@@ -1,3 +1,7 @@
+---
+title: "Introduction to Distributed Systems"
+---
+
 ## A distributed system is...
 > "... a system in which the failure of a computer you didn't know existed can render you own computer unusable" -- Leslie Lamport
 > mutiple computers communication via a network

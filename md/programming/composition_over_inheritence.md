@@ -1,3 +1,7 @@
+---
+title: "Advantages of Composition Over Inheritance"
+---
+
 ## Disadvantages of Inheritance:
 1. You can't change the implementation inherited from super classes at runtime (obviously because inheritance is defined at compile time).
 2. Inheritance exposes a subclass to details of its parent class implementation, that's why it's often said that inheritance breaks encapsulation, like the design of protected modifier.

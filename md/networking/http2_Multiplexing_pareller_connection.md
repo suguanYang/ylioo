@@ -1,3 +1,7 @@
+---
+title: "HTTP/2 Multiplexing and Performance Benefits"
+---
+
 Interleave multiple requests in parallel without blocking on any one
 
 Interleave multiple responses in parallel without blocking on any one

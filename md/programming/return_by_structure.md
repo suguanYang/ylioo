@@ -1,3 +1,7 @@
+---
+title: "Structure Return Patterns in C"
+---
+
 void make_something(something_t *object) 
 is the most common way to use structures in C. You leave the allocation to the caller. It is efficient but not pretty. and it also helpful when the function
 need to return a code to the caller.
