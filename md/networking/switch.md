@@ -1,3 +1,7 @@
+---
+title: "Switch"
+---
+
 ## Switch(L3 switch)
 A switch is connected to a set of links and, for each of these links, runs the appropriate data link protocol to communicate with the node at the other end of the link. A switch’s primary job is to receive incoming packets on one of its links and to transmit them on some other link. This function is sometimes referred to as either switching or forwarding, and in terms of the Open Systems Interconnection (OSI) architecture, it is considered a function of the network layer.
 A layer 3 switch can perform all the functionalities of a layer 2 switch along with static and dynamic routing in layer 3. This means the layer 3 switch can operate on both layer 2 and layer 3, and forwards packets based on its IP table along with ARP tables, between multiple network segments or subnets and different virtual LANs (VLANs).

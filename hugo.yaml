@@ -10,8 +10,7 @@ defaultContentLanguage: en
 enableRobotsTXT: true
 
 frontmatter:
-  lastmod: [':git', ':fileModTime']
-  date: [':git', ':fileCommitDate']
+  date: [':git', ':fileModTime']
 
 markup:
   _merge: deep # Import default config

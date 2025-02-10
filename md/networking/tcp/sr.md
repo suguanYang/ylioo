@@ -1,3 +1,7 @@
+---
+title: "Selective Repeat Window Size Requirements"
+---
+
 Why window size of Selective Repate needs most half of the max sequence number?
 
 The main problem of the why windows size matter is the receiver can not tell the diffence between a retransmition and a new packet,

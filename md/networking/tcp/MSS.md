@@ -1,3 +1,7 @@
+---
+title: "Understanding TCP Maximum Segment Size"
+---
+
 The maximum amount of data that can be grabbed
 and placed in a segment is limited by the maximum segment size (MSS). The MSS
 is typically set by first determining the length of the largest link-layer frame that

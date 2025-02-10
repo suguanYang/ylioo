@@ -1,3 +1,7 @@
+---
+title: "OSI Model"
+---
+
 ## Physical
 ### Bits representation
 ### Encoding

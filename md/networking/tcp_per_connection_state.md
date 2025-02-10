@@ -1,3 +1,7 @@
+---
+title: "TCP Per-Connection State"
+---
+
 TCP per-connection state refers to the set of variables and data structures that the operating system and TCP protocol maintain for each individual connection. This information is crucial for managing the communication flow, ensuring reliable data delivery, and adapting to network conditions.
 
 Identification: This includes the IP addresses and ports of both the sender and receiver, uniquely identifying the connection.

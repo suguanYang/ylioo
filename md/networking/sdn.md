@@ -1,4 +1,6 @@
-## What is SDN?
+---
+title: "Software-Defined Networking (SDN)"
+---
 
 Routing through a network has traditionally been handled by dedicated hardware such as routers and switches. SDN moves these functions into software, providing a mechanism by which network control logic is decoupled from the device that implements it. SDN layers software controllers atop your hardware so you can dynamically define network behavior as sets of rules and policies. The network becomes more flexible because you can change its configuration on demand without requiring additional, or altering existing, hardware.
 

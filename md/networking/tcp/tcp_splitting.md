@@ -1,3 +1,7 @@
+---
+title: "TCP Splitting for Performance Optimization"
+---
+
 As a case study, consider the delay in receiving a response for a search query.
 Typically, the server requires three TCP windows during slow start to deliver the response
 [Pathak 2010]. Thus the time from when an end system initiates a TCP connection until the

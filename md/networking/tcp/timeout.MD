@@ -1,3 +1,6 @@
+---
+title: "TCP Timeout Calculation and Handling"
+---
 
 EstimatedRTT = (1 – α) * EstimatedRTT + α * SampleRTT
 
