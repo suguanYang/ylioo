@@ -47,17 +47,17 @@ jobs:
           hugo \
             --minify \
             --config hugo.yaml \
-            --destination ./html
+            --destination ./ylioo
       - name: Build pagefind index
-        run: npx -y pagefind --site ./html
+        run: npx -y pagefind --site ./ylioo
       - name: Check
-        run: ls -la ./html
+        run: ls -la ./ylioo
       - name: Upload to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: 144.24.24.49
           username: suguan
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "./html/*"
+          source: "./ylioo/*"
           target: "/home/suguan/ylioo"
           overwrite: true
