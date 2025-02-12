@@ -3,7 +3,7 @@ title: Why use QUIC
 ---
 
 
-## why QUIC generally outperforms multiple TCP connections in mobile scenarios, despite your intuition about reliability multiplication.
+## why QUIC generally outperforms multiple TCP connections in mobile scenarios.
 Connection Migration: QUIC was specifically designed with mobility in mind. When a device changes networks (e.g., from WiFi to cellular or between cell towers), QUIC can maintain the same connection without requiring a new handshake. This works because:
 
 QUIC connections are identified by a Connection ID rather than by the 4-tuple (source IP, source port, destination IP, destination port)
@@ -20,8 +20,8 @@ The multiplication of reliability that you're thinking of with multiple TCP conn
 Handshake Overhead: Each TCP connection needs to be re-established separately, multiplying the reconnection delay.
 Slow Start After Reconnection: Each TCP connection must go through slow start again after reconnection, whereas QUIC can often maintain its congestion window.
 
-A concrete example to illustrate:
 Imagine a mobile user downloading content requiring 6 connections while moving between cell towers:
+
 ### Multiple TCP Scenario:
 
 All 6 connections break during the handover
@@ -39,7 +39,7 @@ Total recovery time: ~0-1 RTTs
 
 There are scenarios where multiple TCP connections might perform better (very stable networks with high bandwidth), but for the specific case of mobile networks with frequent transitions and connection drops, QUIC's design provides significant advantages over multiple parallel TCP connections.
 
-### Server-Side Resource Management
+## Server-Side Resource Management
 1. Multiple TCP Connections:
 
 Each TCP connection maintains separate state (congestion window, RTT estimation, etc.)
@@ -56,7 +56,7 @@ Reduced context switching overhead
 More efficient CPU utilization
 User-space implementation allows for better scaling on multicore systems
 
-### Network-level Effects
+## Network-level Effects
 1. Multiple TCP Connections:
 
 Congestion Window Multiplication: Each client gets 6× the bandwidth they would with a single connection
