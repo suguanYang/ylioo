@@ -109,7 +109,6 @@ while (true) {
 
 normally the task was ordered by FIFO
 
-## the setTimeout
 ### example 1
 the first setTimeout task was poped out first, beacuse it pushed to task-queue first
 ```javascript
@@ -258,3 +257,30 @@ function shouldExit() {
 
 startEventLoop();
 ```
+
+### example 2
+```javascript
+import { Duplex } from 'node:stream';
+const stream = new Duplex();
+stream._read = () => {}
+
+async function main() {
+    const promise = new Promise((resolve, reject) => {
+        stream.on("data", (chunk) => console.log('data'));
+        stream.on("error", (err) => reject(err));
+        stream.on("end", () => resolve("done"));
+    });
+
+    console.log("Waiting...");
+    await promise;
+    console.log("Done");
+}
+
+main()
+```
+
+The output is:
+```
+Waiting...
+```
+There is not active handles, so the event loop will not block, and the event loop will exit.

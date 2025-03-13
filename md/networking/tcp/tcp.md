@@ -2,7 +2,13 @@
 title: "TCP Protocol Design Decisions and Tradeoffs"
 ---
 
-TCP is a full-duplex protocol, so it would be easy to open a TCP connection between the client and server, send the request message in one direction, and send the reply message in the other direction. There are two complications, however. The first is that TCP is a byte-oriented protocol rather than a message-oriented protocol, and request/reply applications always deal with messages. (We explore the issue of bytes versus messages in greater detail in a moment.) The second complication is
+## End to End
+TCP is an end to end protocol by design, as IP only provides connectivity function to the upper layers, and hidden the lower layers complexity, its simple abstraction is easily used by the ends when they want the connection.
+The key point is here: Certain functions can only be fully and correctly implemented at the "end points" (the applications that are communicating), because only they have the complete knowledge needed.
+Such as reliability, any layer under transport layer usually is “incomplete” and not sufficient to provide end-to-end reliable data transfer.
+
+## Tradeoffs
+TCP is a full-duplex protocol, so it would be easy to open a TCP connection between the client and server, send the request message in one direction, and send the reply message in the other direction. There are two complications, however. The first is that TCP is a byte-oriented protocol rather than a message-oriented protocol, and request/reply applications always deal with messages. The second complication is
 that in those situations where both the request message and the reply message fit in a single network packet, a well-designed request/reply protocol needs only two packets to implement the exchange, whereas
 TCP would need at least nine: **three to establish the connection, two for the message exchange, and four to tear down the connection**. 
 Of course, if the request or reply messages are large enough to require multiple network packets (e.g., it might take 100 packets to send a 100,000-byte
@@ -18,6 +24,4 @@ service, rather than the strictly ordered service of TCP. (SCTP also makes some 
 Fourth, TCP chose to implement explicit setup/teardown phases, but this is not required. In the case of connection setup, it would be possible to send all necessary connection parameters along with the first data message. TCP elected to take a more conservative approach that gives the receiver the opportunity to reject the connection before any data arrives. In the case of teardown, we could quietly close a connection that has been inactive for a long period of time, but this would
 complicate applications like remote login that want to keep a connection alive for weeks at a time; such applications would be forced to send out-of-band "keep alive" messages to keep the connection state at the other end from disappearing.
 
-Finally, TCP is a window-based protocol, but this is not the only possibility. The alternative is a rate-based design, in which the receiver tells the sender the rate—expressed in either bytes or packets per second—at which it is willing to accept incoming data. For example, the receiver might inform the sender that it can accommodate 100 packets a second. There is an interesting duality between windows and rate, since the number of packets (bytes) in the window, divided by the RTT, is
-exactly the rate. For example, a window size of 10 packets and a 100-ms RTT implies that the sender is allowed to transmit at a rate of 100 packets a second. It is by increasing or decreasing the advertised window size that the receiver is effectively raising or lowering the rate at which the sender can transmit. In TCP, this information is fed back to the sender in the AdvertisedWindow field of the ACK for every segment. One of the key issues in a rate-based protocol is how often the
-desired rate—which may change over time—is relayed back to the source: Is it for every packet, once per RTT, or only when the rate changes? 
+
