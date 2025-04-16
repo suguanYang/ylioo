@@ -218,11 +218,6 @@ It serves resources requests from the clients, interact with vite internal state
 
 The vite’s dev server core concepte is lazy loading and laverage with es modules.
 
-## API
-
-- create
-- status
-
 ## The plugins
 
 1. Memorized loader
@@ -237,7 +232,7 @@ Memory: At the runtime, massive concurrent http requets will issued by browser, 
 
 ## The sandbox
 
-In the main/children mode, the applications run in the different tabs, some state is maintained by a local variable in the esmodule, if 2 tabs import the same esmodule that contains state, the local variable will be overwritten by the last one, the browser will treat the 2 imports as the same module since their ImportSpecifier are the same, we could append a sandbox id to the ImportSpecifier to make the same esmodule become 2 different ones, to achieve this we have to append the sandbox id to every requests that initialized by the tabs(the requests may hit to different runtime instances), we use a global variable `**sandbox_load_count**` to count on the tab opening, and the preview server will append every resource a sandbox ID includes the dependency modules. So the resource request will become to:
+In the main/children mode, the applications run in the different tabs, some state is maintained by a local variable in the esmodule, if 2 tabs import the same esmodule that contains state, the local variable will be overwritten by the last one, the browser will treat the 2 imports as the same module since their ImportSpecifier are the same, we could append a sandbox id to the ImportSpecifier to make the same esmodule become 2 different ones, to achieve this we have to append the sandbox id to every requests that initialized by the app-loader(the requests may hit to different runtime instances), we use a global variable `**sandbox_load_count**` to count on the app loading, and the preview server will append every resource a sandbox ID includes the dependency modules. So the resource request will become to:
 
 `/app-runtime/preview/resource/123/pc/src/pages/index/costomPage.tsx?h=1670650504301&sandbox=1`
 
@@ -252,12 +247,21 @@ The requests to the preview server is self-contained, it has the information on 
 we could run a simple algorithm to dispatch the requests to the same preview server if they have the same app ID:
 
 `SERVER_ID = hash("431306586676806014") mod len(preview servers)`
-
-We could also inject a SERVERID in the response cookie, when the client comes again with the cookie "SERVERID=A", the proxy will know that it must be forwarded to server A. The cookie will be removed so that the server does not see it.
+but this will force any application's request to the same server, which is not what we want, we want the application's request to be distributed on different servers.
 
 2. Stateless server(current implementation)
 
 The state in the Vite could be eliminated, if we can ship them to the external system like Redis or other database. Compare to the first solution, a stateless server will suffer on the consistency, because we have to synchronize on the external states, but it also has a better partition tolerance than the first approach, the consistency is very important to the preview server, but the stateless way is more controllable, we could run a long term optimization on it.
+and we also could run hash on file path, and use the result to dispatch the request to the same server:
+
+`SERVER_ID = hash("pc/src/utils/event-bus/index.ts") mod len(preview servers)`
+
+this has serval benefits:
+
+1. al request will be distributed on different servers
+2. the same file will be loaded from the same server, some files are shared between applications, like the `utils`, `components`, `hooks`, etc.ss
+3. the in-memory files' size can be more fine-grained, if the system is stable, after a session of one app requests, the in-memory files for that app
+can be safly deleted, and the next session all requests' hit the same server as the first session, and all files will be loaded from the compiled module graph.
 
 ## System integration
 
