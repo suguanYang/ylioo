@@ -61,8 +61,8 @@ eventLoop = {
         
         // Update layout tree if needed
         if (this.hasPendingStyleOrLayoutChanges()) {
-            this.recalculateStyles();
-            this.updateLayout();
+            this.recalculateStyles(); 
+            this.updateLayout(); // Reflow
         }
         
         // Run pre-paint steps
@@ -76,7 +76,7 @@ eventLoop = {
         this.runIntersectionObservers();
         
         // Compositing and rendering
-        this.updateLayerTree();
+        this.updateLayerTree(); // Layerize
         this.paint();
         this.composite();
     },
