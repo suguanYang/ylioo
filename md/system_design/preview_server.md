@@ -1,5 +1,5 @@
 ---
-title: "Preview Server System Design"
+title: "A centralized dev server with Vite"
 ---
 
 Repository: [https://github.com/suguanYang/next-web](https://github.com/suguanYang/next-web)

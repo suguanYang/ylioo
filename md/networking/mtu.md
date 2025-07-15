@@ -2,7 +2,6 @@
 title: "Why my network hang"
 ---
 
-Debugging a Mysterious Connection Failure: A Deep Dive into WSL2, VPNs, and MTU
 I recently went down a debugging what seemed like a simple connection failure, and the journey revealed some fundamental truths about how the internet works.
 
 The Setup and The Symptom
@@ -16,7 +15,7 @@ All traffic routed over a Tailscale VPN tunnel.
 
 The command would just hang, eventually timing out. My first instinct was to open Wireshark to see what was happening on the network. The capture showed the TCP three-way handshake (SYN, SYN-ACK, ACK) completing successfully, but then the connection would stall right after my client sent its Client Hello message to start the TLS encryption. After a long pause, the connection would end with a [RST] reset packet.
 
-![](./assets/debugging.png)
+![](../assets/debugging.png)
 
 The key symptom was clear: the connection was established, but it died waiting for the server's response (the Server Hello), which seemed to vanish into thin air.
 
@@ -30,7 +29,7 @@ The culprit was a classic, often-overlooked network setting: the Maximum Transmi
 
 Think of MTU as the largest "package size" allowed on a network path. The standard for the internet is 1500 bytes. However, a VPN like Tailscale adds its own encryption headers to every packet, effectively creating a "narrower tunnel" that requires smaller packages to get through.
 
-![](./assets/mtu_debugging.png)
+![](../assets/mtu_debugging.png)
 
 
 WSL2 wasn't aware of this narrower tunnel. It was creating standard-sized 1500-byte packets, but when these oversized packets hit the VPN, a router somewhere down the line saw they were too big and, following the rules, simply dropped them. The Server Hello from Google, often a large packet due to security certificates, was the first victim.

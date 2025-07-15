@@ -1,6 +1,10 @@
-# A Developer's Guide to Writing High-Performance JavaScript for V8
+---
+title: JS Performance
+---
 
-This guide provides actionable rules and practical examples to help you write JavaScript code that performs optimally with the V8 engine (used by Node.js and Chrome). Understanding these principles can lead to faster, smoother, and more efficient applications.
+# Writing High-Performance JavaScript for V8
+
+This guide provides actionable principles and practical examples to help write JavaScript code that performs optimally with the V8 engine.
 
 ## Table of Contents
 
@@ -18,7 +22,7 @@ This guide provides actionable rules and practical examples to help you write Ja
 
 V8 uses "hidden classes" (or "shapes") to optimize property access. Objects with the same hidden class can be processed by the same optimized machine code.
 
-### Rule 1: Initialize object properties consistently and in the same order
+### Initialize object properties consistently and in the same order
 
 **Why:** This allows V8 to reuse hidden classes. Inconsistent initialization forces V8 to create new hidden classes, slowing down property access and potentially leading to deoptimizations.
 
@@ -50,7 +54,7 @@ const person2 = createPerson("Bob", 25, "New York");
 ```
 **Benefit:** Both objects share the same hidden class, enabling optimization reuse.
 
-### Rule 2: Avoid adding or deleting properties after object creation
+### Avoid adding or deleting properties after object creation
 
 **Why:** Modifying an object's structure after creation forces V8 to transition to a new hidden class, which is costly. Deleting properties can move an object into slower "dictionary mode".
 
@@ -79,7 +83,7 @@ const user1 = createUser(1, "Charlie", "charlie@example.com");
 const user2 = createUser(2, null, "dave@example.com");
 ```
 
-### Rule 3: Keep property types consistent
+### Keep property types consistent
 
 **Why:** V8 optimizes operations based on observed property types. Type changes can cause deoptimization and force re-optimization.
 
@@ -130,7 +134,7 @@ The Object.create will create a new object, and set the largeObj as the prototyp
 
 V8 highly optimizes array operations, especially for arrays with consistent element types.
 
-### Rule 4: Prefer "packed" arrays and consistent element kinds
+### Prefer "packed" arrays and consistent element kinds
 
 **Why:** 
 - **Packed arrays:** Arrays without holes allow faster element access than "holey" arrays
@@ -155,7 +159,7 @@ const doubles = [1.1, 2.2, 3.3, 4.4, 5.5];
 const items = [getItem(0), null, getItem(2)];
 ```
 
-### Rule 5: Use TypedArrays for raw binary data or large numeric arrays
+### Use TypedArrays for raw binary data or large numeric arrays
 
 **Why:** TypedArrays store data in contiguous memory without JavaScript object overhead per element, making them more memory-efficient and faster for large numeric operations.
 
@@ -182,7 +186,7 @@ for (let i = 0; i < count; i++) {
 
 Write code that reduces GC pauses and memory pressure.
 
-### Rule 6: Minimize object churn in hot functions
+### Minimize object churn in hot functions
 
 **Why:** Excessive object creation/destruction can lead to frequent garbage collection, impacting performance.
 
@@ -217,7 +221,7 @@ function getMagnitudeSquared(vector) {
 }
 ```
 
-### Rule 7: Manage object lifetimes effectively
+### Manage object lifetimes effectively
 
 **Why:** Short-lived objects are efficiently handled by Young Generation GC. Explicit dereferencing helps GC identify unreachable objects sooner.
 
@@ -244,7 +248,7 @@ function processAndReleaseData() {
 }
 ```
 
-### Rule 8: Be mindful of closures retaining large objects
+### Be mindful of closures retaining large objects
 
 **Why:** Closures retain references to parent scope variables. Long-lived closures can prevent garbage collection of large objects.
 
@@ -284,13 +288,70 @@ function attachSelectiveDataProcessor(eventEmitter) {
 }
 ```
 
+### Case Study: Memory Leaks in Component Closures
+
+In frameworks like React, if a component registers an event listener or exports a function to a global object (e.g., `window`), it creates a closure. If this closure captures a component-specific function like a state setter (`setState`), it creates a strong reference that can prevent the entire component, its props, state, and fiber node from being garbage collected, leading to significant memory leaks.
+
+#### ❌ Problematic Example
+```javascript
+import React, { useState, useEffect } from 'react';
+
+const LeakyComponent = () => {
+  const [value, setValue] = useState(0);
+
+  const handleResize = () => {
+    // This function creates a closure that captures `setValue`.
+    console.log('Resized, current value is:', value);
+    // Because handleResize is attached to the global `window` object,
+    // it holds a reference to `setValue`, which in turn keeps the
+    // entire component's fiber alive even after it unmounts.
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    // No cleanup function is returned, so the listener is never removed.
+  }, []); // The empty dependency array means this effect runs only once.
+
+  return <div>Leaky Component: {value}</div>;
+};
+```
+
+#### ✅ Solution
+```javascript
+import React, { useState, useEffect, useCallback } from 'react';
+
+const FixedComponent = () => {
+  const [value, setValue] = useState(0);
+
+  // `useCallback` is used to memoize the function, but the key is the cleanup.
+  const handleResize = useCallback(() => {
+    // The logic remains the same, but its lifecycle is now managed.
+    console.log('Resized, current value is:', value);
+  }, [value]); // Dependency array ensures `handleResize` has the latest `value`.
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    // The key to fixing the leak: return a cleanup function.
+    // React will execute this when the component unmounts.
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      console.log('Resize listener removed. Component cleaned up.');
+    };
+  }, [handleResize]); // Effect re-runs if `handleResize` changes.
+
+  return <div>Fixed Component: {value}</div>;
+};
+```
+
 ---
 
 ## Leveraging the JIT Compiler
 
 V8's Just-In-Time compiler (TurboFan) optimizes frequently executed functions into efficient machine code.
 
-### Rule 9: Write predictable, type-stable functions
+### Write predictable, type-stable functions
 
 **Why:** Functions called with consistent argument types (monomorphic) are easier to optimize than those with varying types (polymorphic/megamorphic).
 
@@ -321,7 +382,7 @@ getNumericValue({ value: 20 });
 getStringRepresentation({ representation: "item" });
 ```
 
-### Rule 10: Keep functions small and focused
+### Keep functions small and focused
 
 **Why:** Smaller functions are more likely to be inlined by TurboFan, eliminating function call overhead and exposing more optimization opportunities.
 
@@ -378,7 +439,7 @@ function processUserDataOptimized(user) {
 }
 ```
 
-### Rule 11: Avoid patterns that cause deoptimization
+### Avoid patterns that cause deoptimization
 
 **Why:** Deoptimization occurs when V8's optimizing compiler discards optimized code due to broken assumptions, falling back to slower unoptimized code.
 
@@ -418,7 +479,7 @@ function sumArraySafer(arr) {
 
 JavaScript's single-threaded event loop requires careful management of asynchronous operations.
 
-### Rule 12: Avoid long-running synchronous operations
+### Avoid long-running synchronous operations
 
 **Why:** Synchronous code blocks the event loop, preventing processing of user interactions, network responses, and timers.
 
@@ -461,7 +522,7 @@ self.onmessage = function(e) {
 };
 ```
 
-### Rule 13: Understand microtask vs. macrotask queue implications
+### Understand microtask vs. macrotask queue implications
 
 **Why:** Promises schedule microtasks that are processed before the next macrotask. Long microtask chains can delay macrotasks, affecting responsiveness.
 
@@ -496,14 +557,14 @@ async function processBatchAsync(items) {
 
 ---
 
-### Rule 14: Overhead of Asynchronous
+### Overhead of Asynchronous
 
 **Why:** Asynchronous operations introduce additional overhead, including context switching and event loop management.
 
 
 ## String and RegExp Optimizations
 
-### Rule 14: Be mindful of string concatenation in loops
+### Be mindful of string concatenation in loops
 
 **Why:** While V8 optimizes simple concatenations well, many intermediate strings in tight loops can pressure the GC.
 
@@ -526,7 +587,7 @@ for (let i = 0; i < iterations; i++) {
 const resultStringOptimized = parts.join("");
 ```
 
-### Rule 15: Optimize complex regular expressions
+### Optimize complex regular expressions
 
 **Why:** Poorly written regexes can cause catastrophic backtracking. Re-creating RegExp objects in hot loops is inefficient.
 
@@ -544,7 +605,7 @@ function extractValue(text) {
 ```javascript
 const valueRegex = /value=(\d+)/; // Define once, outside hot function
 
-function extractValueOptimized(text) {
+function extractValueOptimized(.text) {
   const match = text.match(valueRegex);
   return match ? match[1] : null;
 }
@@ -554,7 +615,7 @@ function extractValueOptimized(text) {
 
 ## General Best Practices
 
-### Rule 16: Use built-in methods wisely
+### Use built-in methods wisely
 
 **Why:** Native JavaScript methods are implemented in C++ and highly optimized by V8. They're generally faster and safer than hand-rolled equivalents.
 
@@ -577,7 +638,7 @@ const doubledNumbersBuiltIn = numbers
   .map(n => n * 2);
 ```
 
-### Rule 17: Profile Your Code! (The Golden Rule)
+### Profile Your Code! (The Golden Rule)
 
 **Why:** Performance optimization should be guided by data, not guesswork. Profiling identifies actual bottlenecks where optimization efforts will have the most impact.
 
@@ -588,7 +649,7 @@ const doubledNumbersBuiltIn = numbers
    - **Browsers:** Chrome DevTools (Performance tab, Memory tab)
    - **Node.js:** `node --prof` and `node --prof-process`, or `node --inspect`
 4. **Analyze** results to find functions consuming the most CPU/memory
-5. **Optimize** identified bottlenecks using relevant rules from this guide
+5. **Optimize** identified bottlenecks using relevant principles from this guide
 6. **Re-profile** to confirm improvement
 7. **Repeat** as necessary
 
@@ -614,4 +675,4 @@ Performance optimization in V8 revolves around understanding how the engine work
 - **Event loop awareness:** Keep the main thread responsive
 - **Data-driven optimization:** Always profile before optimizing
 
-Remember: **Profile first, optimize second.** These rules provide a foundation, but real-world performance issues should always be identified through profiling and measurement.
+Remember: **Profile first, optimize second.** These principles provide a foundation, but real-world performance issues should always be identified through profiling and measurement.
