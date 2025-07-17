@@ -1,5 +1,5 @@
 ---
-title: "ESM and CommonJS Interoperability"
+title: "ESM and CommonJS under bundler"
 ---
 
 The transformation of ESM and CJS
@@ -73,6 +73,8 @@ export default (__default !== undefined ? __default : __rest);
   }
 ```
 
+## Require
+
 when cjs `require` is used, mostly in some libary that declared to support both node and browser, they often achive this by
 
 ```
@@ -89,6 +91,7 @@ this is troublesome when a bundler like webpack try to bundle on this module to 
 But require and import are totally different things, require runs at runtime, for js perspecitve its just a fucntion call, while import in specification is a declaration, its just a
 pure semantic and static analysisble top level structure, also the dynamic import expression is not equivalent to require, it returns a promise.
 
+### TLA
 
 furthermore, when TLA is used, cjs and module are become more imcompatible, asume module A is a module that use TLA,
 whats the result of a `require(esm)`? nodejs still works on this, but how bundler deal with it? webpack support a simmilar
@@ -107,6 +110,62 @@ but this has color problem, all modules that involved this module alone the path
 a `require()` call on that path, webpack will keep the async module as is
  
 
+### Live binding
+CJS exports are mutable and totally in runtime, what you get from require() is just a normal object reference
+that can be mutated at any time, you can change the value of `exports.default` or `exports.foo` after the module is loaded, and the change will be reflected in all places that require that module. In contrast, ESM exports are immutable, once an ESM module is loaded, its exports are fixed and cannot be changed.
+
+But ESM has "live binding", the imported member is a live reference to the exported member, if the exported member is changed, the imported member will reflect that change. so import statment is not simply a const declaration, but how we can achive this in the bundler?
+
+1. The Module as a Singleton Namespace Object 
+the bundler creates a live link or a proxy to the property on the module's namespace object.
+So, whenever you use the imported member in your code, you are implicitly calling the getter which fetches the current value from the original module's scope. You are, always accessing it "through that Object," even if the syntax makes it look like a local variable. This is precisely how live binding is preserved.
+
+```
+import { setA, a } from "./a.js";
+
+console.log(a); // 1
+setA();
+console.log(a); // 2
+
+export default 1;
+```
+
+2. Static linking with Inline Scope Hoisting
+The bundler can also use scope hoisting to ensure that the imported members are always accessed directly from the importing modules scope as a variable.
+```
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __esm = (fn, res) => function() {
+	return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+};
+
+//#endregion
+//#region a.js
+var a, setA;
+var init_a = __esm({ "a.js"() {
+	a = 1;
+	setA = () => {
+		a = 2;
+	};
+} });
+
+//#endregion
+//#region index.js
+var index_default;
+var init_index = __esm({ "index.js"() {
+	init_a();
+	console.log(a);
+	setA();
+	console.log(a);
+	index_default = 1;
+} });
+
+//#endregion
+init_index();
+```
+this can gain better performance since bare-name lookups are faster than property accesses
+
+
 ## Reference
 https://github.com/evanw/esbuild/issues/946
 https://joyeecheung.github.io/blog/2024/03/18/require-esm-in-node-js/
+https://devongovett.me/blog/scope-hoisting.html
